@@ -1,0 +1,24 @@
+{
+  "name": "file-metadata-microservice",
+  "version": "1.0.0",
+  "description": "FreeCodeCamp API Project #5",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ryan-Rutledge/file-metadata-microservice.git"
+  },
+  "author": "Ryan Rutledge",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ryan-Rutledge/file-metadata-microservice/issues"
+  },
+  "homepage": "https://github.com/Ryan-Rutledge/file-metadata-microservice#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "multer": "^1.1.0"
+  }
+}

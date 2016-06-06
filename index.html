@@ -1,0 +1,71 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <title>File Metadata Microservice</title>
+        
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <h1 class="text-center">File Metadata Microservice</h1>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8">
+                    <div id="submitMessage" class="alert alert-success" role="alert">
+                        <strong>File Submitted!</strong> Your file is being processed...
+                    </div>
+                    <section class="panel panel-primary">
+                        <header class="panel-heading">
+                            <div class="panel-title">Get file size</div>
+                        </header>
+                        
+                        <div class="panel-body">
+                            <form id="filePoster" enctype="multipart/form-data">
+                                <fieldset class="form-group">
+                                    <label for="file_input">File Upload:</label>
+                                    <input type="file" id="file_input" name="file" class="form-control">
+                                </fieldset>
+                                <fieldset class="form-group">
+                                    <input type="submit" class="btn btn-primary btn-block">
+                                </fieldset>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        
+        <script>
+            $('#submitMessage').hide();
+            $('#filePoster').submit(function(e) {
+                $.ajax({
+                    url: '/post_file',
+                    method: 'POST',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function() {
+                        $('#submitMessage').show();
+                        $('#filePoster input').attr('disabled', true);
+                    },
+                    success: function(data) {
+                        alert('File Size: ' + (data && data.fileSize));
+                    },
+                    error: function() {
+                        alert('Unable to get file size.');
+                    },
+                    complete: function() {
+                        $('#submitMessage').hide();
+                        $('#filePoster input').attr('disabled', false);
+                    }
+                })
+                e.preventDefault();
+            });
+        </script>
+    </body>
+</html>
